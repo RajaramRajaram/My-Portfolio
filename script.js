@@ -36,22 +36,46 @@ window.addEventListener("scroll", () => {
 const sections = document.querySelectorAll(".section");
 const navItems = document.querySelectorAll(".nav-link");
 
-window.addEventListener("scroll", () => {
-  let current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-    if (scrollY >= sectionTop - 200) {
-      current = section.getAttribute("id");
-    }
-  });
+// window.addEventListener("scroll", () => {
+//   let current = "";
+//   sections.forEach((section) => {
+//     const sectionTop = section.offsetTop;
+//     const sectionHeight = section.clientHeight;
+//     if (scrollY >= sectionTop - 200) {
+//       current = section.getAttribute("id");
+//     }
+//   });
 
-  navItems.forEach((item) => {
-    item.classList.remove("active");
-    if (item.getAttribute("href") === "#" + current) {
-      item.classList.add("active");
-    }
-  });
+//   navItems.forEach((item) => {
+//     item.classList.remove("active");
+//     if (item.getAttribute("href") === "#" + current) {
+//       item.classList.add("active");
+//     }
+//   });
+// });
+
+let scrollTimeout;
+window.addEventListener("scroll", () => {
+  if (scrollTimeout) return;
+  scrollTimeout = setTimeout(() => {
+    let current = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= sectionTop - 200) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navItems.forEach((item) => {
+      item.classList.remove("active");
+      if (item.getAttribute("href") === "#" + current) {
+        item.classList.add("active");
+      }
+    });
+
+    scrollTimeout = null;
+  }, 150); // Adjust delay as needed
 });
 
 // Intersection Observer for Animations
@@ -69,12 +93,30 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe all sections
+// // Observe all sections
+// sections.forEach((section) => {
+//   section.style.opacity = "0";
+//   section.style.transform = "translateY(50px)";
+//   section.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+//   observer.observe(section);
+// });
+
+const isMobile = window.innerWidth <= 768;
+
 sections.forEach((section) => {
-  section.style.opacity = "0";
-  section.style.transform = "translateY(50px)";
+  // Set initial style with transition
   section.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-  observer.observe(section);
+
+  if (!isMobile) {
+    section.style.opacity = "0";
+    section.style.transform = "translateY(50px)";
+    observer.observe(section);
+  } else {
+    // On mobile, still allow fade-in but limit transform
+    section.style.opacity = "0.8";
+    section.style.transform = "translateY(10px)";
+    observer.observe(section);
+  }
 });
 
 // Contact button actions
