@@ -27,9 +27,12 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Mobile optimization */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
-/* Professional Background */
+/* Professional Background - Simplified for mobile */
 body::before {
   content: "";
   position: fixed;
@@ -201,6 +204,9 @@ main {
   border: 3px solid var(--accent-color);
   animation: slideInRight 1s ease, float 6s ease-in-out infinite;
   box-shadow: var(--shadow-hover);
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .download {
@@ -219,10 +225,13 @@ main {
   font-size: 1rem;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-soft);
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
   box-shadow: var(--shadow-hover);
 }
 
@@ -258,10 +267,13 @@ main {
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .column:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) translateZ(0);
   box-shadow: var(--shadow-soft);
   border-color: var(--accent-color);
 }
@@ -310,13 +322,15 @@ main {
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) translateZ(0);
   box-shadow: var(--shadow-hover);
   border-color: var(--accent-color);
-
 }
 
 .project-image i {
@@ -337,7 +351,7 @@ main {
   color: var(--text-primary);
   position: relative;
   border-radius: 12px;
-  overflow: visible; /* Allow icons to extend outside if needed */
+  overflow: visible;
   padding: 5px;
 }
 
@@ -370,6 +384,7 @@ main {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
 .linker {
   background: var(--accent-color);
   color: var(--text-primary);
@@ -377,13 +392,23 @@ main {
   border-radius: 8px;
   font-size: 0.8rem;
   font-weight: 500;
-   cursor: pointer;
-   text-decoration: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
-a{
+
+.linker:hover {
+  transform: translateY(-2px) translateZ(0);
+}
+
+a {
   text-decoration: none;
   color: var(--text-primary);
 }
+
 .tech-tag {
   background: var(--accent-color);
   color: var(--text-primary);
@@ -399,7 +424,11 @@ a{
   object-fit: fill;
   border-radius: 12px;
   transition: transform 0.3s ease;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
+
 /* Contact Section */
 .contact {
   text-align: center;
@@ -439,10 +468,13 @@ a{
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   cursor: pointer;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .contact-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) translateZ(0);
   box-shadow: var(--shadow-soft);
   border-color: var(--accent-color);
 }
@@ -481,61 +513,66 @@ a{
   color: var(--text-primary);
   font-size: 1.5rem;
   transition: all 0.3s ease;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .contact-sci a:hover {
-  transform: translateY(-5px) scale(1.1);
+  transform: translateY(-5px) scale(1.1) translateZ(0);
   box-shadow: var(--shadow-hover);
 }
 
-/* Animations */
+/* Animations - Optimized for mobile */
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-30px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(30px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
 }
 
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(30px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
 @keyframes float {
   0%,
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) translateZ(0);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-15px) translateZ(0);
   }
 }
 
-/* Responsive Design */
+/* Mobile Responsive Design - Performance Optimized */
 @media (max-width: 768px) {
+  /* Reduce backdrop-filter for better performance */
   .header {
     padding: 1rem 3%;
+    backdrop-filter: blur(10px);
   }
 
   .nav-links {
@@ -545,7 +582,7 @@ a{
     width: 100%;
     height: calc(100vh - 80px);
     background: rgba(26, 15, 10, 0.98);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -587,18 +624,23 @@ a{
     height: 280px;
     margin: 0 auto 2rem auto;
     justify-self: center;
+    /* Reduce animation intensity on mobile */
+    animation: slideInRight 0.8s ease, float 8s ease-in-out infinite;
   }
 
   .home-content h1 {
     font-size: 2.5rem;
+    animation-duration: 0.8s;
   }
 
   .home-content .subtitle {
     font-size: 1.3rem;
+    animation-duration: 0.8s;
   }
 
   .home-content .description {
     font-size: 1rem;
+    animation-duration: 0.8s;
   }
 
   .columns {
@@ -617,6 +659,14 @@ a{
   .projects,
   .contact {
     padding: 3rem 2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Disable hover effects on mobile */
+  .column:hover,
+  .project-card:hover,
+  .contact-item:hover {
+    transform: none;
   }
 }
 
@@ -624,10 +674,13 @@ a{
   .profile-pic {
     width: 240px;
     height: 240px;
+    /* Further reduce animation on small screens */
+    animation: slideInRight 0.6s ease;
   }
 
   .home-content h1 {
     font-size: 2rem;
+    animation-duration: 0.6s;
   }
 
   .about,
@@ -640,5 +693,39 @@ a{
   .projects h1,
   .contact h1 {
     font-size: 2rem;
+  }
+
+  /* Reduce blur effects for better performance on low-end devices */
+  .header,
+  .nav-links,
+  .about,
+  .projects,
+  .contact,
+  .column,
+  .project-card,
+  .contact-item {
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* Disable animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
   }
 }
