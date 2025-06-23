@@ -593,9 +593,9 @@ a {
     left: 0;
   }
 
-  .mobile-menu {
+  /* .mobile-menu {
     display: flex;
-  }
+  } */
 
   .section {
     padding: 3rem 3%;
